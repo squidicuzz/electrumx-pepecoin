@@ -4160,3 +4160,33 @@ class FerriteTestnet(Ferrite):
         'enode2.ferritecoin.org s t',
         'enode3.ferritecoin.org s t',
     ]
+
+
+class StakeCubeCoin(Coin):
+    NAME = "StakeCubeCoin"
+    SHORTNAME = "SCC"
+    NET = "mainnet"
+    XPUB_VERBYTES = bytes.fromhex("0488b21e")
+    XPRV_VERBYTES = bytes.fromhex("0488ade4")
+    GENESIS_HASH = ('000001112c342e635d0e48db15505392'
+                    'e74b2cab902dff9243ade44939da5b47')
+    P2PKH_VERBYTE = bytes.fromhex("7D")
+    P2SH_VERBYTES = (bytes.fromhex("75"),)
+    WIF_BYTE = bytes.fromhex("fd")
+    TX_COUNT_HEIGHT = 1225570
+    TX_COUNT = 2347487
+    TX_PER_BLOCK = 3
+    RPC_PORT = 39999
+    PEERS = [
+        'electrum2.stakecube.exchange s t',
+        'electrum1.stakecube.net s t',
+    ]
+    SESSIONCLS = DashElectrumX
+    DAEMON = daemon.DashDaemon
+    DESERIALIZER = lib_tx_dash.DeserializerDash
+
+    @classmethod
+    def header_hash(cls, header):
+        '''Given a header return the hash.'''
+        import dash_hash
+        return dash_hash.getPoWHash(header)
